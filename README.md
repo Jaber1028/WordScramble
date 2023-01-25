@@ -1,7 +1,7 @@
 # WordScramble
 
 ## Description
-This is another simple SwiftUI game: WordScramble. THe app gives you a 8 letter word and the user tries to make as many words as possible with it.
+This is another simple SwiftUI game: WordScramble. The app gives you a 8 letter word and the user tries to make as many words as possible with it.
 You can only use real words and they must be larger than 2 words.
 
 ## UseMe
