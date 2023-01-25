@@ -17,6 +17,7 @@ This will give you a new word to try to scramble, and restart the score.
 
 ## New Used Features
 (In no particular order)
+
 List; autocapitalization toggles; onSubmit; onAppear; guard; Bundle (grabs URL of file); String trimming
 Strings contentsOf (grabs urls contents); fatalError; UITextChecker (first Objective C library); NS Range.
 
