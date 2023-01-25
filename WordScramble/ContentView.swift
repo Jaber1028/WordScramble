@@ -16,31 +16,45 @@ struct ContentView: View {
     @State private var errorMessage = ""
     @State private var showingError = false
     
+    // Score will be counted based on total letter used
+    @State private var scoreCount = 0
+    
     var body: some View {
         NavigationStack {
-                List {
-                    Section {
-                        TextField("enter your word", text: $newWord)
-                            .autocapitalization(.none)
-                    }
-                    
-                    Section {
-                        ForEach(usedWords, id: \.self) { word in
-                            HStack {
-                                Image(systemName: "\(word.count).circle")
-                                Text(word)
-                            }
+            List {
+                Section("Input a word!") {
+                    TextField("enter your word", text: $newWord)
+                        .autocapitalization(.none)
+                        .autocorrectionDisabled()
+                }
+                
+                Section("Your Score:") {
+                    Text("\(scoreCount) points!")
+                        .font(.title)
+                }
+                
+                Section("Used Words") {
+                    ForEach(usedWords, id: \.self) { word in
+                        HStack {
+                            Image(systemName: "\(word.count).circle")
+                            Text(word)
                         }
                     }
                 }
-                .navigationTitle(rootWord)
-                .onSubmit(addNewWord)
-                .onAppear(perform: startGame)
-                .alert(errorTitle, isPresented: $showingError) {
-                    Button("OK", role: .cancel) {}
-                } message: {
-                    Text(errorMessage)
+            }
+            .navigationTitle(rootWord)
+            .onSubmit(addNewWord)
+            .onAppear(perform: startGame)
+            .alert(errorTitle, isPresented: $showingError) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(errorMessage)
+            }
+            .toolbar {
+                ToolbarItem {
+                    Button("Start new Game!", action: startGame)
                 }
+            }
         }
     }
     
@@ -66,6 +80,8 @@ struct ContentView: View {
         withAnimation {
             usedWords.insert(answer, at: 0)
         }
+        
+        scoreCount += answer.count
         newWord = ""
     }
     
@@ -74,6 +90,8 @@ struct ContentView: View {
             if let startWords = try? String(contentsOf: wordDocument) {
                 let allwords = startWords.components(separatedBy: "\n")
                 rootWord = allwords.randomElement() ?? "silkworm"
+                usedWords = [String]()
+                scoreCount = 0
                 return
             }
         }
