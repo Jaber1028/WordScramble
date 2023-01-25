@@ -77,6 +77,11 @@ struct ContentView: View {
             return
         }
         
+        guard isSizeable(word: answer) else {
+            wordError(title: "Answer is wrong size!", message: "It is either less than 3 words or the start word!")
+            return
+        }
+        
         withAnimation {
             usedWords.insert(answer, at: 0)
         }
@@ -132,6 +137,10 @@ struct ContentView: View {
         errorTitle = message
         errorTitle = title
         showingError = true
+    }
+    
+    func isSizeable(word: String) -> Bool {
+        word.count < 2 && word.count < rootWord.count
     }
 }
 
