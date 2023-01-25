@@ -55,6 +55,7 @@ struct ContentView: View {
                     Button("Start new Game!", action: startGame)
                 }
             }
+            Spacer()
         }
     }
     
@@ -140,7 +141,7 @@ struct ContentView: View {
     }
     
     func isSizeable(word: String) -> Bool {
-        word.count < 2 && word.count < rootWord.count
+        word.count > 2 && word.count < rootWord.count
     }
 }
 
